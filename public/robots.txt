@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.amtb.cc/sitemap.xml
