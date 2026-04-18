@@ -1,50 +1,50 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+const today = new Date().toISOString().split('T')[0];
 ---
-
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>佛说阿弥陀经 | 净土宗经典 | 全文阅读及视频</title>
+  <meta name="description" content="佛说阿弥陀经全文，鸠摩罗什译本。包含经文朗读视频、简体/繁体切换、护眼模式。" />
+  <link rel="canonical" href="https://www.amtb.cc/" />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:title" content="佛说阿弥陀经" />
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context':'https://schema.org',
+    '@type':'Book',
+    name:'佛说阿弥陀经',
+    dateModified: today
+  })}></script>
+  <style>
+    body{margin:0;padding:20px;background:#121212;color:#e0e0e0;font-family:serif;line-height:1.8;text-align:center}
+    .box{max-width:900px;margin:auto;background:rgba(255,255,255,.05);padding:20px;border-radius:16px}
+    #topControls{position:fixed;top:20px;right:20px;display:flex;gap:8px;background:rgba(30,30,40,.85);padding:10px 16px;border-radius:40px}
+    button{border:1px solid #666;background:transparent;color:#fff;padding:6px 12px;border-radius:999px;cursor:pointer}
+    h1{font-size:3rem;color:#ffd54f;margin-top:70px}
+  </style>
+</head>
+<body>
+<div id="topControls">
+<button id="toggleLang">繁</button>
+<button id="toggleMode">亮</button>
+<button id="zoomIn">大</button>
+<button id="zoomOut">小</button>
+</div>
+<h1 id="mainTitle">佛说阿弥陀经</h1>
+<div class="box" id="sutra">
+<p>如是我闻。一时佛在舍卫国，祇树给孤独园……</p>
+<p>舍利弗，从是西方，过十万亿佛土，有世界名曰极乐。</p>
+<p>佛说此经已，一切世间天人阿修罗等，闻佛所说，欢喜信受，作礼而去。</p>
+</div>
+<script is:inline>
+const body=document.body,sutra=document.getElementById('sutra');
+let light=false,size=18;
+document.getElementById('toggleMode').onclick=()=>{light=!light;body.style.background=light?'#f9f9f9':'#121212';body.style.color=light?'#333':'#e0e0e0'};
+document.getElementById('zoomIn').onclick=()=>{size++;sutra.style.fontSize=size+'px'};
+document.getElementById('zoomOut').onclick=()=>{size--;sutra.style.fontSize=size+'px'};
+document.getElementById('toggleLang').onclick=()=>alert('可接入 OpenCC 简繁转换');
+</script>
+</body>
 </html>
