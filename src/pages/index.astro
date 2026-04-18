@@ -1,50 +1,990 @@
 ---
-const today = new Date().toISOString().split('T')[0];
+// ================================================================
+// SUNRISE EDUCATION — Comparison Guide Page
+// IGCSE vs STPM vs SPM vs UEC — Complete Guide
+// Integrated into Astro index.astro
+// ================================================================
+
+const SITE = {
+  url:    "https://www.sun.edu.my",
+  page:   "https://www.sun.edu.my/compare",
+  name:   "Sunrise Education",
+  phone:  "+60124251556",
+  wa:     "https://wa.link/vm8vm6",
+  ai:     "https://ai.sun.edu.my",
+};
+
+// JSON-LD Schema (stringified for injection)
+const SCHEMA = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${SITE.page}#article`,
+      "headline": "IGCSE vs STPM vs SPM vs UEC — Complete Comparison Guide for Malaysian Students 2026",
+      "description": "A comprehensive, unbiased comparison of Malaysia's four main secondary qualifications: Cambridge IGCSE, STPM, SPM, and UEC. Covers recognition, cost, difficulty, university pathways and more.",
+      "keywords": "IGCSE vs SPM, IGCSE vs STPM, IGCSE vs UEC, STPM vs SPM, Malaysia secondary qualifications, Cambridge IGCSE Malaysia, best qualification Malaysia university",
+      "author": { "@type": "Organization", "name": "Sunrise Education", "url": SITE.url },
+      "publisher": { "@type": "Organization", "name": "Sunrise Education", "url": SITE.url, "logo": { "@type": "ImageObject", "url": `${SITE.url}/favicon.ico` } },
+      "datePublished": "2024-01-01",
+      "dateModified": "2026-03-15",
+      "inLanguage": "en",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": SITE.page }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE.url },
+        { "@type": "ListItem", "position": 2, "name": "Comparison Guide", "item": SITE.page }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is the difference between IGCSE and SPM?", "acceptedAnswer": { "@type": "Answer", "text": "IGCSE is an internationally recognised qualification by Cambridge Assessment International Education, taught in English, and accepted by universities in 160+ countries. SPM (Sijil Pelajaran Malaysia) is Malaysia's national examination conducted by Lembaga Peperiksaan Malaysia, primarily in Malay, and mainly for entry into Malaysian public universities. IGCSE offers more flexibility in subject selection and broader international recognition." } },
+        { "@type": "Question", "name": "Is IGCSE harder than SPM?", "acceptedAnswer": { "@type": "Answer", "text": "IGCSE and SPM assess different competencies. IGCSE places greater emphasis on critical thinking, analysis, and written expression in English across international standards. SPM is benchmarked to Malaysian national standards. Neither is objectively harder — difficulty depends on individual strengths, but IGCSE requires stronger English proficiency and independent thinking skills." } },
+        { "@type": "Question", "name": "Which qualification is best for studying abroad — IGCSE, STPM, or UEC?", "acceptedAnswer": { "@type": "Answer", "text": "Cambridge IGCSE is the most widely recognised internationally, accepted by universities in over 160 countries including the UK, USA, Australia, and Canada. STPM is recognised in some Commonwealth countries and Australian universities. UEC is accepted by many universities in Taiwan, China, Singapore, and some Australian universities. For the broadest global university options, Cambridge IGCSE offers the most pathways." } },
+        { "@type": "Question", "name": "Which is the cheapest qualification — IGCSE, STPM, SPM, or UEC?", "acceptedAnswer": { "@type": "Answer", "text": "SPM and STPM are the most affordable as they are government-subsidised Malaysian national examinations with very low examination fees. UEC is offered in Chinese Independent High Schools with moderate fees. Cambridge IGCSE involves school fees plus examination fees and is typically the most expensive, though costs vary greatly by school. Private Cambridge IGCSE schools like Sunrise Education keep fees accessible." } },
+        { "@type": "Question", "name": "Does IGCSE qualify for Malaysian public university entry (IPTA)?", "acceptedAnswer": { "@type": "Answer", "text": "Cambridge IGCSE alone is not the standard pathway for Malaysian public university (IPTA) entry, which primarily uses SPM, STPM, or matriculation (Matrikulasi). However, IGCSE students can pursue pre-university programmes (A Levels, Foundation) to enter public or private universities in Malaysia and internationally." } },
+        { "@type": "Question", "name": "What is STPM and who should take it?", "acceptedAnswer": { "@type": "Answer", "text": "STPM (Sijil Tinggi Persekolahan Malaysia) is Malaysia's pre-university public examination, equivalent to A Levels, administered by Majlis Peperiksaan Malaysia (MPM). It is highly regarded for entry into Malaysian public universities (IPTA). STPM suits students targeting local university entry on a budget, as it is government-subsidised. Results are graded on a CGPA system." } },
+        { "@type": "Question", "name": "What is UEC and is it recognised in Malaysia?", "acceptedAnswer": { "@type": "Answer", "text": "UEC (Unified Examination Certificate) is administered by the United Chinese School Committees' Association of Malaysia (UCSCAM) and is the qualification of Chinese Independent High Schools. UEC is recognised by universities in Taiwan, China, Singapore, Australia, and many private universities in Malaysia, but is NOT recognised for entry into Malaysian public universities (IPTA). Recognition has been a long-standing policy debate in Malaysia." } },
+        { "@type": "Question", "name": "Can I do both IGCSE and SPM?", "acceptedAnswer": { "@type": "Answer", "text": "Some students in Malaysia study for both Cambridge IGCSE and SPM simultaneously through certain private schools, though this is demanding. More commonly, students choose one pathway. Cambridge IGCSE schools typically prepare students for further pre-university study (A Levels), while SPM students typically proceed through STPM or matriculation for Malaysian university entry." } },
+        { "@type": "Question", "name": "Which qualification do top Malaysian students choose?", "acceptedAnswer": { "@type": "Answer", "text": "Students targeting Malaysian public universities (UM, UKM, USM, etc.) typically use SPM followed by STPM or Matriculation. Students targeting international universities (UK, Australia, USA) typically pursue Cambridge IGCSE followed by A Levels. Students from Chinese-speaking families may choose UEC for university entry in Chinese-speaking countries. The best choice depends on the student's target university and career goals." } }
+      ]
+    },
+    {
+      "@type": "EducationalOrganization",
+      "@id": `${SITE.url}/#org`,
+      "name": "Sunrise Education",
+      "alternateName": "阳光学府",
+      "url": SITE.url,
+      "telephone": SITE.phone,
+      "address": { "@type": "PostalAddress", "streetAddress": "No. 25-2nd Floor, Jalan Mahogani 5/KS7", "addressLocality": "Klang", "addressRegion": "Selangor", "postalCode": "41200", "addressCountry": "MY" }
+    }
+  ]
+});
+
+// Note: robots.txt and sitemap.xml can be generated via separate endpoints
+// or static files in the public directory. They are not part of this page.
 ---
-<html lang="zh-Hans">
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>佛说阿弥陀经 | 净土宗经典 | 全文阅读及视频</title>
-  <meta name="description" content="佛说阿弥陀经全文，鸠摩罗什译本。包含经文朗读视频、简体/繁体切换、护眼模式。" />
-  <link rel="canonical" href="https://www.amtb.cc/" />
-  <meta name="robots" content="index,follow" />
-  <meta property="og:title" content="佛说阿弥陀经" />
-  <meta property="og:type" content="website" />
-  <script type="application/ld+json" set:html={JSON.stringify({
-    '@context':'https://schema.org',
-    '@type':'Book',
-    name:'佛说阿弥陀经',
-    dateModified: today
-  })}></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+
+  <!-- PRIMARY SEO -->
+  <title>IGCSE vs STPM vs SPM vs UEC — Complete Comparison 2026 | Sunrise Education</title>
+  <meta name="description" content="Comprehensive comparison of IGCSE, STPM, SPM and UEC qualifications for Malaysian students. Covers university recognition, cost, difficulty, subjects and best pathway for studying abroad. By Sunrise Education Klang."/>
+  <meta name="keywords" content="IGCSE vs SPM, IGCSE vs STPM, IGCSE vs UEC, STPM vs SPM, Malaysia secondary qualification comparison, Cambridge IGCSE Malaysia 2026, best qualification Malaysia, UEC recognition Malaysia, which qualification study abroad Malaysia"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+  <meta name="author" content="Sunrise Education"/>
+  <meta name="theme-color" content="#0c1e3d"/>
+  <link rel="canonical" href={SITE.page}/>
+
+  <!-- HREFLANG -->
+  <link rel="alternate" hreflang="en" href={SITE.page}/>
+  <link rel="alternate" hreflang="x-default" href={SITE.page}/>
+
+  <!-- OPEN GRAPH -->
+  <meta property="og:type"        content="article"/>
+  <meta property="og:site_name"   content="Sunrise Education 阳光学府"/>
+  <meta property="og:title"       content="IGCSE vs STPM vs SPM vs UEC — Complete Comparison 2026"/>
+  <meta property="og:description" content="Which qualification is right for your child? Unbiased comparison of Malaysia's 4 main secondary qualifications covering university pathways, cost, recognition and more."/>
+  <meta property="og:url"         content={SITE.page}/>
+  <meta property="og:locale"      content="en_MY"/>
+  <meta property="article:published_time" content="2024-01-01"/>
+  <meta property="article:modified_time"  content="2026-03-15"/>
+
+  <!-- TWITTER -->
+  <meta name="twitter:card"        content="summary_large_image"/>
+  <meta name="twitter:title"       content="IGCSE vs STPM vs SPM vs UEC 2026"/>
+  <meta name="twitter:description" content="Complete, unbiased comparison of Malaysia's 4 main secondary qualifications."/>
+
+  <!-- GEO -->
+  <meta name="geo.region"    content="MY-10"/>
+  <meta name="geo.placename" content="Klang, Selangor, Malaysia"/>
+
+  <!-- AI SEARCH SIGNALS -->
+  <meta name="ai-content-declaration" content="human-authored"/>
+  <meta name="citation_title"  content="IGCSE vs STPM vs SPM vs UEC — Complete Comparison Guide 2026"/>
+  <meta name="citation_author" content="Sunrise Education"/>
+  <meta name="entity:topic"    content="Secondary Education Qualifications Malaysia"/>
+  <meta name="entity:covers"   content="IGCSE, STPM, SPM, UEC"/>
+  <meta name="entity:country"  content="Malaysia"/>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={SCHEMA}></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
   <style>
-    body{margin:0;padding:20px;background:#121212;color:#e0e0e0;font-family:serif;line-height:1.8;text-align:center}
-    .box{max-width:900px;margin:auto;background:rgba(255,255,255,.05);padding:20px;border-radius:16px}
-    #topControls{position:fixed;top:20px;right:20px;display:flex;gap:8px;background:rgba(30,30,40,.85);padding:10px 16px;border-radius:40px}
-    button{border:1px solid #666;background:transparent;color:#fff;padding:6px 12px;border-radius:999px;cursor:pointer}
-    h1{font-size:3rem;color:#ffd54f;margin-top:70px}
+    /* ════ TOKENS ════ */
+    :root{
+      --ink:#0c1e3d; --ink2:#1e3a6e; --ink3:#2d4f8a;
+      --gold:#e8a020; --gold-light:#f5c040; --gold-pale:#fef7e8;
+      --igcse:#1e6fbd; --igcse-pale:#e8f2fc;
+      --spm:#16803c;  --spm-pale:#e6f7ed;
+      --stpm:#9b3a9b; --stpm-pale:#f7eaf7;
+      --uec:#c0392b;  --uec-pale:#fdf0ef;
+      --cream:#fafaf7; --white:#fff;
+      --border:#e4e0d8; --border2:#d0ccc0;
+      --text:#1a2535; --text2:#4a5568; --text3:#718096;
+      --shadow-sm:0 2px 8px rgba(12,30,61,.07);
+      --shadow-md:0 6px 28px rgba(12,30,61,.11);
+      --shadow-lg:0 16px 56px rgba(12,30,61,.16);
+      --r:10px; --r2:18px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.7;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+
+    /* ════ TOP NAV ════ */
+    .topnav{
+      background:var(--ink);
+      position:sticky;top:0;z-index:200;
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .topnav-inner{
+      max-width:1140px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 1.5rem;height:60px;
+    }
+    .tnav-logo{display:flex;align-items:center;gap:.65rem;color:#fff}
+    .tnav-sun{
+      width:34px;height:34px;border-radius:50%;
+      background:linear-gradient(135deg,#ff7e3d,var(--gold));
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fraunces',serif;font-size:1rem;color:var(--ink);font-weight:700;
+      box-shadow:0 0 14px rgba(232,160,32,.4);flex-shrink:0;
+    }
+    .tnav-name{font-size:.9rem;font-weight:700;color:#fff;line-height:1.1}
+    .tnav-sub{font-size:.62rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
+    .tnav-links{display:flex;align-items:center;gap:.2rem}
+    .tnav-links a{
+      color:rgba(255,255,255,.68);font-size:.82rem;font-weight:600;
+      padding:.38rem .75rem;border-radius:6px;transition:all .2s;white-space:nowrap;
+    }
+    .tnav-links a:hover{color:var(--gold-light);background:rgba(255,255,255,.06)}
+    .tnav-wa{
+      background:linear-gradient(135deg,#25d366,#128c7e);
+      color:#fff!important;border-radius:20px!important;
+      padding:.38rem .9rem!important;font-weight:700!important;
+      display:flex!important;align-items:center;gap:.35rem;
+    }
+    .tnav-wa:hover{opacity:.9;transform:translateY(-1px)}
+    .hmb{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:.4rem;border:none;background:none}
+    .hmb span{display:block;width:20px;height:2px;background:rgba(255,255,255,.8);border-radius:2px}
+    .mob-nav{display:none;background:var(--ink);border-top:1px solid rgba(255,255,255,.08);padding:.75rem 1.5rem 1.25rem;flex-direction:column;gap:.2rem}
+    .mob-nav.open{display:flex}
+    .mob-nav a{color:rgba(255,255,255,.78);font-weight:600;font-size:.88rem;padding:.55rem .8rem;border-radius:7px;transition:background .2s}
+    .mob-nav a:hover{background:rgba(255,255,255,.07)}
+    .mob-nav .mwa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff!important;text-align:center;margin-top:.4rem;border-radius:9px}
+
+    /* ════ HERO ════ */
+    .hero{
+      background:linear-gradient(150deg,var(--ink) 0%,#122040 45%,#1e3a6e 100%);
+      padding:5rem 1.5rem 4.5rem;position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e8a020' fill-opacity='0.04' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0L80 12v2L54 40h-2zm4 0L80 16v2L58 40h-2zm4 0L80 20v2L62 40h-2zm4 0L80 24v2L66 40h-2zm4 0L80 28v2L70 40h-2zm4 0L80 32v2L74 40h-2zm4 0L80 36v2L78 40h-2z'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events:none;
+    }
+    .hero-inner{max-width:1140px;margin:0 auto;position:relative;z-index:1;text-align:center}
+    .hero-eyebrow{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.28);
+      color:var(--gold-light);font-size:.72rem;font-weight:700;
+      letter-spacing:.12em;text-transform:uppercase;
+      padding:.3rem .9rem;border-radius:20px;margin-bottom:1.4rem;
+    }
+    .hero-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);animation:blink 2s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    .hero h1{
+      font-family:'Fraunces',serif;
+      font-size:clamp(2.2rem,5.5vw,4rem);
+      color:#fff;line-height:1.08;font-weight:900;
+      margin-bottom:1.2rem;letter-spacing:-.01em;
+    }
+    .hero h1 .vs{color:var(--gold);font-style:italic;font-weight:400}
+    .hero-sub{
+      font-size:1.08rem;color:rgba(255,255,255,.68);
+      max-width:640px;margin:0 auto 2.2rem;line-height:1.78;
+    }
+    .qual-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:.65rem;margin-bottom:2.5rem}
+    .pill{
+      padding:.45rem 1.15rem;border-radius:30px;
+      font-size:.8rem;font-weight:700;letter-spacing:.04em;
+      border:2px solid;transition:transform .2s;cursor:default;
+    }
+    .pill:hover{transform:translateY(-2px)}
+    .pill-igcse{background:rgba(30,111,189,.2);border-color:rgba(30,111,189,.5);color:#7bbff5}
+    .pill-spm{background:rgba(22,128,60,.2);border-color:rgba(22,128,60,.5);color:#6dd9a0}
+    .pill-stpm{background:rgba(155,58,155,.2);border-color:rgba(155,58,155,.5);color:#d89dd8}
+    .pill-uec{background:rgba(192,57,43,.2);border-color:rgba(192,57,43,.5);color:#f09286}
+    .hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-gold{
+      background:linear-gradient(135deg,var(--gold),#ff7e3d);
+      color:var(--ink);font-weight:800;font-size:.92rem;
+      padding:.78rem 1.8rem;border-radius:10px;
+      transition:transform .2s,box-shadow .2s;
+      box-shadow:0 4px 18px rgba(232,160,32,.35);
+      display:inline-flex;align-items:center;gap:.4rem;
+    }
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,160,32,.45)}
+    .btn-outline-w{
+      border:2px solid rgba(255,255,255,.25);color:rgba(255,255,255,.88);
+      font-weight:700;font-size:.92rem;padding:.78rem 1.8rem;border-radius:10px;
+      transition:all .2s;display:inline-flex;align-items:center;gap:.4rem;
+    }
+    .btn-outline-w:hover{border-color:var(--gold);background:rgba(232,160,32,.1)}
+
+    /* ════ JUMP NAV ════ */
+    .jump-nav{
+      background:var(--white);
+      border-bottom:2px solid var(--border);
+      position:sticky;top:60px;z-index:190;
+    }
+    .jump-inner{
+      max-width:1140px;margin:0 auto;
+      display:flex;overflow-x:auto;gap:0;
+      scrollbar-width:none;
+    }
+    .jump-inner::-webkit-scrollbar{display:none}
+    .jlink{
+      flex-shrink:0;padding:.75rem 1.2rem;
+      font-size:.8rem;font-weight:700;color:var(--text3);
+      border-bottom:3px solid transparent;transition:all .2s;
+      white-space:nowrap;
+    }
+    .jlink:hover,.jlink.active{color:var(--ink);border-bottom-color:var(--gold)}
+
+    /* ════ SECTIONS ════ */
+    .section{padding:5rem 1.5rem}
+    .section.alt{background:var(--white)}
+    .s-inner{max-width:1140px;margin:0 auto}
+    .s-tag{display:inline-flex;align-items:center;gap:.5rem;color:var(--gold);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem}
+    .s-tag::before{content:'';display:block;width:18px;height:2px;background:var(--gold);border-radius:2px}
+    .s-title{font-family:'Fraunces',serif;font-size:clamp(1.7rem,3.5vw,2.6rem);color:var(--ink);line-height:1.15;font-weight:700;margin-bottom:.8rem}
+    .s-title em{color:var(--gold);font-style:italic;font-weight:400}
+    .s-lead{font-size:1.03rem;color:var(--text2);max-width:680px;line-height:1.8}
+    .divider{width:44px;height:3px;background:linear-gradient(90deg,var(--gold),#ff7e3d);border-radius:2px;margin:1rem 0 2.5rem}
+
+    /* ════ OVERVIEW CARDS ════ */
+    .overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
+    .ocard{
+      border-radius:var(--r2);overflow:hidden;
+      box-shadow:var(--shadow-md);
+      border:2px solid transparent;
+      transition:transform .25s,box-shadow .25s,border-color .25s;
+      background:var(--white);
+    }
+    .ocard:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+    .ocard.igcse{border-color:var(--igcse)}
+    .ocard.spm{border-color:var(--spm)}
+    .ocard.stpm{border-color:var(--stpm)}
+    .ocard.uec{border-color:var(--uec)}
+    .ocard-head{
+      padding:1.5rem 1.4rem 1.2rem;
+      display:flex;flex-direction:column;gap:.4rem;
+    }
+    .ocard.igcse .ocard-head{background:linear-gradient(135deg,#0f3460,var(--igcse))}
+    .ocard.spm .ocard-head{background:linear-gradient(135deg,#0a3d20,var(--spm))}
+    .ocard.stpm .ocard-head{background:linear-gradient(135deg,#4a0e5c,var(--stpm))}
+    .ocard.uec .ocard-head{background:linear-gradient(135deg,#6b1410,var(--uec))}
+    .ocard-badge{
+      font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+      padding:.18rem .6rem;border-radius:12px;width:fit-content;
+      background:rgba(255,255,255,.18);color:rgba(255,255,255,.9);
+    }
+    .ocard-abbr{font-family:'Fraunces',serif;font-size:2rem;color:#fff;font-weight:900;line-height:1}
+    .ocard-fullname{font-size:.72rem;color:rgba(255,255,255,.75);line-height:1.3}
+    .ocard-body{padding:1.2rem 1.4rem 1.5rem}
+    .ocard-row{display:flex;align-items:flex-start;gap:.55rem;margin-bottom:.65rem}
+    .ocard-row:last-child{margin-bottom:0}
+    .ocard-icon{font-size:.85rem;margin-top:.1rem;flex-shrink:0}
+    .ocard-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.1rem}
+    .ocard.igcse .ocard-label{color:var(--igcse)}
+    .ocard.spm .ocard-label{color:var(--spm)}
+    .ocard.stpm .ocard-label{color:var(--stpm)}
+    .ocard.uec .ocard-label{color:var(--uec)}
+    .ocard-val{font-size:.85rem;color:var(--text2);line-height:1.4}
+
+    /* ════ COMPARISON TABLE ════ */
+    .tbl-wrap{
+      overflow-x:auto;margin-top:2.5rem;
+      border-radius:var(--r2);box-shadow:var(--shadow-lg);
+      border:1px solid var(--border);
+    }
+    table{width:100%;border-collapse:collapse;background:var(--white);min-width:760px}
+    thead tr{background:var(--ink)}
+    th{
+      padding:1rem 1.1rem;font-size:.75rem;font-weight:800;
+      letter-spacing:.08em;text-transform:uppercase;text-align:left;
+      color:rgba(255,255,255,.7);border-right:1px solid rgba(255,255,255,.08);
+    }
+    th:first-child{color:rgba(255,255,255,.4);width:180px}
+    th.th-igcse{color:#7bbff5}
+    th.th-spm{color:#6dd9a0}
+    th.th-stpm{color:#d89dd8}
+    th.th-uec{color:#f09286}
+    th:last-child{border-right:none}
+    tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+    tbody tr:last-child{border-bottom:none}
+    tbody tr:hover{background:#fdfaf4}
+    td{padding:.85rem 1.1rem;font-size:.88rem;color:var(--text2);vertical-align:top;border-right:1px solid var(--border)}
+    td:last-child{border-right:none}
+    td:first-child{font-weight:700;color:var(--ink);font-size:.82rem;background:#fafaf7;white-space:nowrap}
+    .tag-yes{display:inline-flex;align-items:center;gap:.3rem;color:#16803c;font-weight:700;font-size:.8rem}
+    .tag-no{display:inline-flex;align-items:center;gap:.3rem;color:#c0392b;font-weight:700;font-size:.8rem}
+    .tag-partial{display:inline-flex;align-items:center;gap:.3rem;color:#9b3a9b;font-weight:700;font-size:.8rem}
+    .tag-check::before{content:'✓';font-weight:900}
+    .tag-cross::before{content:'✗';font-weight:900}
+    .tag-part::before{content:'◑'}
+    .tbl-note{font-size:.78rem;color:var(--text3);margin-top:.9rem;font-style:italic;padding-left:.2rem}
+
+    /* ════ DEEP DIVE CARDS ════ */
+    .deep-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+    .dcard{
+      background:var(--white);border-radius:var(--r2);
+      border:1px solid var(--border);overflow:hidden;
+      box-shadow:var(--shadow-sm);transition:box-shadow .25s,transform .25s;
+    }
+    .dcard:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+    .dcard-head{padding:1.4rem 1.6rem 1.1rem;border-bottom:1px solid var(--border)}
+    .dcard-head.igcse{background:linear-gradient(135deg,var(--igcse-pale),#f0f7ff)}
+    .dcard-head.spm{background:linear-gradient(135deg,var(--spm-pale),#edfaf3)}
+    .dcard-head.stpm{background:linear-gradient(135deg,var(--stpm-pale),#fdf5ff)}
+    .dcard-head.uec{background:linear-gradient(135deg,var(--uec-pale),#fff5f4)}
+    .dcard-abbr{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;margin-bottom:.15rem}
+    .dcard.igcse .dcard-abbr{color:var(--igcse)}
+    .dcard.spm .dcard-abbr{color:var(--spm)}
+    .dcard.stpm .dcard-abbr{color:var(--stpm)}
+    .dcard.uec .dcard-abbr{color:var(--uec)}
+    .dcard-fullname{font-size:.78rem;color:var(--text3);font-weight:600;margin-bottom:.5rem}
+    .dcard-tagline{font-size:.85rem;color:var(--text);font-weight:700}
+    .dcard-body{padding:1.4rem 1.6rem}
+    .dcard-body h4{font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:.9rem 0 .4rem}
+    .dcard-body h4:first-child{margin-top:0}
+    .dcard-body p{font-size:.88rem;color:var(--text2);line-height:1.7;margin-bottom:.5rem}
+    .dcard-body ul{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+    .dcard-body li{font-size:.86rem;color:var(--text2);padding-left:1.2rem;position:relative}
+    .dcard-body li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700;font-size:.75rem;top:.05rem}
+    .pro-con{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem}
+    .pros-box,.cons-box{border-radius:var(--r);padding:.9rem 1rem}
+    .pros-box{background:#edfaf3;border:1px solid #b8f0cf}
+    .cons-box{background:#fef5f5;border:1px solid #fcc}
+    .pros-box h5,.cons-box h5{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+    .pros-box h5{color:var(--spm)}
+    .cons-box h5{color:var(--uec)}
+    .pros-box li::before{color:var(--spm)}
+    .cons-box li::before{color:var(--uec)}
+
+    /* ════ WHO SHOULD CHOOSE ════ */
+    .who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
+    .who-card{
+      background:var(--white);border-radius:var(--r2);
+      padding:1.6rem 1.4rem;border:2px solid var(--border);
+      transition:border-color .2s,box-shadow .2s,transform .2s;
+      box-shadow:var(--shadow-sm);
+    }
+    .who-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .who-card.igcse:hover{border-color:var(--igcse)}
+    .who-card.spm:hover{border-color:var(--spm)}
+    .who-card.stpm:hover{border-color:var(--stpm)}
+    .who-card.uec:hover{border-color:var(--uec)}
+    .who-badge{
+      display:inline-block;padding:.28rem .75rem;border-radius:20px;
+      font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+    .who-card.igcse .who-badge{background:var(--igcse-pale);color:var(--igcse)}
+    .who-card.spm .who-badge{background:var(--spm-pale);color:var(--spm)}
+    .who-card.stpm .who-badge{background:var(--stpm-pale);color:var(--stpm)}
+    .who-card.uec .who-badge{background:var(--uec-pale);color:var(--uec)}
+    .who-card h3{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);margin-bottom:.8rem;line-height:1.2}
+    .who-card ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .who-card li{font-size:.84rem;color:var(--text2);padding-left:1.1rem;position:relative}
+    .who-card li::before{content:'✓';position:absolute;left:0;font-weight:900;font-size:.72rem}
+    .who-card.igcse li::before{color:var(--igcse)}
+    .who-card.spm li::before{color:var(--spm)}
+    .who-card.stpm li::before{color:var(--stpm)}
+    .who-card.uec li::before{color:var(--uec)}
+
+    /* ════ UNIVERSITY PATHS ════ */
+    .paths-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+    .path-card{
+      background:var(--white);border-radius:var(--r2);
+      border:1px solid var(--border);padding:1.6rem 1.8rem;
+      box-shadow:var(--shadow-sm);
+    }
+    .path-title{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--ink);margin-bottom:.4rem;font-weight:700}
+    .path-sub{font-size:.8rem;color:var(--text3);margin-bottom:1.2rem}
+    .path-row{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.55rem 0;border-bottom:1px solid var(--border);
+      font-size:.85rem;
+    }
+    .path-row:last-child{border-bottom:none}
+    .path-qual{font-weight:700;color:var(--text)}
+    .path-rating{display:flex;gap:.25rem}
+    .dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--border)}
+    .dot.fill-igcse{background:var(--igcse);border-color:var(--igcse)}
+    .dot.fill-spm{background:var(--spm);border-color:var(--spm)}
+    .dot.fill-stpm{background:var(--stpm);border-color:var(--stpm)}
+    .dot.fill-uec{background:var(--uec);border-color:var(--uec)}
+    .dot.empty{background:transparent}
+    .path-lbl{font-size:.72rem;color:var(--text3);width:70px;text-align:right}
+
+    /* ════ SUNRISE CTA ════ */
+    .sunrise-cta{
+      background:linear-gradient(135deg,var(--ink) 0%,#1e3a6e 100%);
+      border-radius:var(--r2);margin-top:4rem;
+      padding:3.5rem;display:flex;align-items:center;justify-content:space-between;
+      gap:2rem;flex-wrap:wrap;position:relative;overflow:hidden;
+    }
+    .sunrise-cta::before{
+      content:'☀';position:absolute;right:3rem;top:50%;transform:translateY(-50%);
+      font-size:8rem;opacity:.04;font-family:'Fraunces',serif;
+    }
+    .sunrise-cta h3{font-family:'Fraunces',serif;font-size:1.8rem;color:#fff;margin-bottom:.4rem;font-weight:700}
+    .sunrise-cta p{color:rgba(255,255,255,.65);font-size:.95rem;max-width:480px}
+    .cta-btns{display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:1}
+
+    /* ════ FAQ ════ */
+    .faq-list{display:flex;flex-direction:column;gap:.8rem;margin-top:2.5rem}
+    .faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+    .faq-item.open{border-color:var(--gold)}
+    .faq-q{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;padding:1.1rem 1.3rem;cursor:pointer;
+      font-weight:700;color:var(--ink);font-size:.94rem;
+      user-select:none;transition:background .2s;
+    }
+    .faq-item.open .faq-q{background:var(--gold-pale)}
+    .faq-icon{
+      width:22px;height:22px;border-radius:50%;flex-shrink:0;
+      background:var(--gold-pale);border:2px solid var(--gold);
+      display:flex;align-items:center;justify-content:center;
+      font-size:.85rem;font-weight:900;color:var(--gold);
+      transition:transform .3s,background .2s;
+    }
+    .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--gold);color:var(--ink)}
+    .faq-ans{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;padding:0 1.3rem}
+    .faq-item.open .faq-ans{max-height:400px;padding:.1rem 1.3rem 1.2rem}
+    .faq-ans p{font-size:.9rem;color:var(--text2);line-height:1.75}
+
+    /* ════ FOOTER ════ */
+    footer{
+      background:var(--ink);color:rgba(255,255,255,.55);
+      padding:3rem 1.5rem 2rem;margin-top:0;
+    }
+    .footer-inner{max-width:1140px;margin:0 auto}
+    .footer-top{
+      display:flex;justify-content:space-between;align-items:flex-start;
+      flex-wrap:wrap;gap:2rem;padding-bottom:2rem;
+      border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:2rem;
+    }
+    .footer-brand .fn{font-family:'Fraunces',serif;font-size:1.1rem;color:#fff;font-weight:700}
+    .footer-brand .fc{font-size:.65rem;color:var(--gold);font-weight:700;letter-spacing:.15em;margin-bottom:.7rem}
+    .footer-brand p{font-size:.83rem;line-height:1.7;margin-bottom:.9rem;max-width:280px}
+    .footer-links{display:flex;gap:3rem;flex-wrap:wrap}
+    .footer-col h5{color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+    .footer-col a{display:block;color:rgba(255,255,255,.5);font-size:.85rem;margin-bottom:.4rem;transition:color .2s}
+    .footer-col a:hover{color:var(--gold-light)}
+    .footer-bottom{
+      display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:.5rem;font-size:.78rem;
+    }
+    .footer-bottom a{color:rgba(255,255,255,.35);transition:color .2s}
+    .footer-bottom a:hover{color:var(--gold-light)}
+    .seo-kw{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.05);display:flex;flex-wrap:wrap;gap:.4rem .3rem;font-size:.72rem}
+    .seo-kw a{color:rgba(255,255,255,.25);transition:color .2s}
+    .seo-kw a:hover{color:rgba(255,255,255,.5)}
+    .seo-kw span{color:rgba(255,255,255,.12)}
+
+    /* ════ FLOAT WA ════ */
+    .float-wa{
+      position:fixed;bottom:1.8rem;right:1.8rem;z-index:300;
+      background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;
+      width:54px;height:54px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 18px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s;
+    }
+    .float-wa:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(37,211,102,.5)}
+    .float-tip{position:absolute;right:62px;background:var(--ink);color:#fff;font-size:.75rem;font-weight:700;padding:.35rem .8rem;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+    .float-wa:hover .float-tip{opacity:1}
+
+    /* ════ REVEAL ════ */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+    .rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}
+
+    /* ════ RESPONSIVE ════ */
+    @media(max-width:1024px){
+      .overview-grid{grid-template-columns:repeat(2,1fr)}
+      .who-grid{grid-template-columns:repeat(2,1fr)}
+      .deep-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      .tnav-links{display:none}.hmb{display:flex}
+      .paths-grid{grid-template-columns:1fr}
+      .sunrise-cta{padding:2rem}
+      .sunrise-cta::before{display:none}
+      .pro-con{grid-template-columns:1fr}
+      .hero h1{font-size:2rem}
+      .section{padding:3.5rem 1.2rem}
+    }
+    @media(max-width:520px){
+      .overview-grid{grid-template-columns:1fr}
+      .who-grid{grid-template-columns:1fr}
+      .hero-cta{flex-direction:column;align-items:center}
+    }
   </style>
 </head>
 <body>
-<div id="topControls">
-<button id="toggleLang">繁</button>
-<button id="toggleMode">亮</button>
-<button id="zoomIn">大</button>
-<button id="zoomOut">小</button>
-</div>
-<h1 id="mainTitle">佛说阿弥陀经</h1>
-<div class="box" id="sutra">
-<p>如是我闻。一时佛在舍卫国，祇树给孤独园……</p>
-<p>舍利弗，从是西方，过十万亿佛土，有世界名曰极乐。</p>
-<p>佛说此经已，一切世间天人阿修罗等，闻佛所说，欢喜信受，作礼而去。</p>
-</div>
-<script is:inline>
-const body=document.body,sutra=document.getElementById('sutra');
-let light=false,size=18;
-document.getElementById('toggleMode').onclick=()=>{light=!light;body.style.background=light?'#f9f9f9':'#121212';body.style.color=light?'#333':'#e0e0e0'};
-document.getElementById('zoomIn').onclick=()=>{size++;sutra.style.fontSize=size+'px'};
-document.getElementById('zoomOut').onclick=()=>{size--;sutra.style.fontSize=size+'px'};
-document.getElementById('toggleLang').onclick=()=>alert('可接入 OpenCC 简繁转换');
+
+<!-- ════ TOP NAV ════ -->
+<nav class="topnav" role="navigation" aria-label="Site navigation">
+  <div class="topnav-inner">
+    <a href={SITE.url} class="tnav-logo" aria-label="Sunrise Education home">
+      <div class="tnav-sun" aria-hidden="true">S</div>
+      <div>
+        <div class="tnav-name">Sunrise Education</div>
+        <div class="tnav-sub">阳光学府 · Klang</div>
+      </div>
+    </a>
+    <div class="tnav-links">
+      <a href="#overview">Overview</a>
+      <a href="#compare">Compare</a>
+      <a href="#deep">Details</a>
+      <a href="#who">Who Should Choose</a>
+      <a href="#faq">FAQ</a>
+      <a href={SITE.wa} class="tnav-wa" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <button class="hmb" onclick="toggleMenu()" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-nav" id="mobNav">
+    <a href="#overview" onclick="closeMenu()">Overview</a>
+    <a href="#compare"  onclick="closeMenu()">Compare Table</a>
+    <a href="#deep"     onclick="closeMenu()">Detailed Guide</a>
+    <a href="#who"      onclick="closeMenu()">Who Should Choose</a>
+    <a href="#uni"      onclick="closeMenu()">University Paths</a>
+    <a href="#faq"      onclick="closeMenu()">FAQ</a>
+    <a href={SITE.wa}  class="mwa" rel="noopener">💬 Ask Sunrise — WhatsApp</a>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<header class="hero" role="banner">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span></span>Complete Guide for Malaysian Students 2026</div>
+    <h1>IGCSE <span class="vs">vs</span> STPM <span class="vs">vs</span> SPM <span class="vs">vs</span> UEC</h1>
+    <p class="hero-sub">Which secondary qualification opens the most doors for your child? An honest, comprehensive comparison covering university recognition, cost, subjects, difficulty and career pathways.</p>
+    <div class="qual-pills">
+      <span class="pill pill-igcse">🎓 Cambridge IGCSE</span>
+      <span class="pill pill-stpm">📘 STPM</span>
+      <span class="pill pill-spm">🇲🇾 SPM</span>
+      <span class="pill pill-uec">🏫 UEC</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#compare" class="btn-gold">📊 See Full Comparison →</a>
+      <a href={SITE.wa} class="btn-outline-w" rel="noopener">💬 Ask an Advisor</a>
+    </div>
+  </div>
+</header>
+
+<!-- ════ JUMP NAV ════ -->
+<nav class="jump-nav" aria-label="Page sections">
+  <div class="jump-inner">
+    <a href="#overview" class="jlink">Overview</a>
+    <a href="#compare"  class="jlink">Comparison Table</a>
+    <a href="#deep"     class="jlink">Detailed Guide</a>
+    <a href="#who"      class="jlink">Who Should Choose</a>
+    <a href="#uni"      class="jlink">University Pathways</a>
+    <a href="#faq"      class="jlink">FAQ</a>
+    <a href="#sunrise"  class="jlink">About Sunrise IGCSE</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ════ OVERVIEW ════ -->
+<section class="section" id="overview">
+  <div class="s-inner">
+    <div class="s-tag">At a Glance</div>
+    <h2 class="s-title">Four Qualifications,<br/><em>Four Different Pathways</em></h2>
+    <div class="divider"></div>
+    <p class="s-lead">Malaysia offers students several routes through secondary education. Each has its own awarding body, target audience, and university access profile. Here's what each one means.</p>
+
+    <div class="overview-grid reveal">
+      <!-- IGCSE -->
+      <div class="ocard igcse">
+        <div class="ocard-head">
+          <div class="ocard-badge">International</div>
+          <div class="ocard-abbr">IGCSE</div>
+          <div class="ocard-fullname">International General Certificate of Secondary Education</div>
+        </div>
+        <div class="ocard-body">
+          <div class="ocard-row"><span class="ocard-icon">🏛</span><div><div class="ocard-label">Awarding Body</div><div class="ocard-val">Cambridge Assessment International Education (CAIE)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">📅</span><div><div class="ocard-label">Typical Age</div><div class="ocard-val">14–16 years</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🌍</span><div><div class="ocard-label">Language</div><div class="ocard-val">English (primarily)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🎓</span><div><div class="ocard-label">Recognition</div><div class="ocard-val">160+ countries worldwide</div></div></div>
+        </div>
+      </div>
+
+      <!-- SPM -->
+      <div class="ocard spm">
+        <div class="ocard-head">
+          <div class="ocard-badge">National (Malaysia)</div>
+          <div class="ocard-abbr">SPM</div>
+          <div class="ocard-fullname">Sijil Pelajaran Malaysia</div>
+        </div>
+        <div class="ocard-body">
+          <div class="ocard-row"><span class="ocard-icon">🏛</span><div><div class="ocard-label">Awarding Body</div><div class="ocard-val">Lembaga Peperiksaan Malaysia (LPM)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">📅</span><div><div class="ocard-label">Typical Age</div><div class="ocard-val">16–17 years (Form 5)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🌍</span><div><div class="ocard-label">Language</div><div class="ocard-val">Malay (Bahasa Malaysia)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🎓</span><div><div class="ocard-label">Recognition</div><div class="ocard-val">Malaysia & select Commonwealth</div></div></div>
+        </div>
+      </div>
+
+      <!-- STPM -->
+      <div class="ocard stpm">
+        <div class="ocard-head">
+          <div class="ocard-badge">Pre-University (MY)</div>
+          <div class="ocard-abbr">STPM</div>
+          <div class="ocard-fullname">Sijil Tinggi Persekolahan Malaysia</div>
+        </div>
+        <div class="ocard-body">
+          <div class="ocard-row"><span class="ocard-icon">🏛</span><div><div class="ocard-label">Awarding Body</div><div class="ocard-val">Majlis Peperiksaan Malaysia (MPM)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">📅</span><div><div class="ocard-label">Typical Age</div><div class="ocard-val">17–18 years (Form 6)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🌍</span><div><div class="ocard-label">Language</div><div class="ocard-val">Malay & English</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🎓</span><div><div class="ocard-label">Recognition</div><div class="ocard-val">Malaysia & some Commonwealth universities</div></div></div>
+        </div>
+      </div>
+
+      <!-- UEC -->
+      <div class="ocard uec">
+        <div class="ocard-head">
+          <div class="ocard-badge">Chinese Independent</div>
+          <div class="ocard-abbr">UEC</div>
+          <div class="ocard-fullname">Unified Examination Certificate</div>
+        </div>
+        <div class="ocard-body">
+          <div class="ocard-row"><span class="ocard-icon">🏛</span><div><div class="ocard-label">Awarding Body</div><div class="ocard-val">United Chinese School Committees' Association (UCSCAM)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">📅</span><div><div class="ocard-label">Typical Age</div><div class="ocard-val">17–18 years</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🌍</span><div><div class="ocard-label">Language</div><div class="ocard-val">Chinese (Mandarin)</div></div></div>
+          <div class="ocard-row"><span class="ocard-icon">🎓</span><div><div class="ocard-label">Recognition</div><div class="ocard-val">China, Taiwan, Singapore, some Australia; NOT Malaysian public universities</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ COMPARISON TABLE ════ -->
+<section class="section alt" id="compare">
+  <div class="s-inner">
+    <div class="s-tag">Side by Side</div>
+    <h2 class="s-title">Full Comparison<br/><em>Table</em></h2>
+    <div class="divider"></div>
+    <p class="s-lead">Every key dimension compared in one place, so you can make an informed decision for your child's future.</p>
+
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th class="th-igcse">🎓 IGCSE</th>
+            <th class="th-spm">🇲🇾 SPM</th>
+            <th class="th-stpm">📘 STPM</th>
+            <th class="th-uec">🏫 UEC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Type of Qualification</td><td>Lower secondary / GCSE equivalent</td><td>Lower secondary national exam</td><td>Pre-university (A Level equivalent)</td><td>Lower + senior secondary</td></tr>
+          <tr><td>Duration</td><td>2 years (Yr 10–11)</td><td>2 years (Form 4–5)</td><td>1.5–2 years (Form 6)</td><td>3 years (Junior + Senior)</td></tr>
+          <tr><td>Primary Language</td><td>English</td><td>Bahasa Malaysia</td><td>Bahasa Malaysia &amp; English</td><td>Chinese (Mandarin)</td></tr>
+          <tr><td>No. of Subjects</td><td>5–14 (student's choice)</td><td>8–12 compulsory + electives</td><td>4 subjects</td><td>16–20 subjects</td></tr>
+          <tr><td>Assessment Style</td><td>Written exams + coursework + orals</td><td>Written exams + school-based</td><td>Semester-based + final exam</td><td>Written exams</td></tr>
+          <tr><td>Grading System</td><td>A*–G (per subject)</td><td>A+–G (per subject)</td><td>CGPA 0–4.0</td><td>A–F (per subject)</td></tr>
+          <tr><td>Examination Fee</td><td>Moderate–High (school fees + exam fees)</td><td>Very Low (government subsidised)</td><td>Very Low (government subsidised)</td><td>Low–Moderate (school fees)</td></tr>
+          <tr><td>Malaysian Public Universities (IPTA)</td><td><span class="tag-no tag-cross">Not direct pathway</span></td><td><span class="tag-yes tag-check">Main pathway</span></td><td><span class="tag-yes tag-check">Primary pathway</span></td><td><span class="tag-no tag-cross">Not recognised</span></td></tr>
+          <tr><td>Malaysian Private Universities</td><td><span class="tag-yes tag-check">Widely accepted</span></td><td><span class="tag-yes tag-check">Widely accepted</span></td><td><span class="tag-yes tag-check">Widely accepted</span></td><td><span class="tag-partial tag-part">Selected institutions</span></td></tr>
+          <tr><td>UK Universities</td><td><span class="tag-yes tag-check">Fully recognised</span></td><td><span class="tag-partial tag-part">Limited recognition</span></td><td><span class="tag-partial tag-part">Some recognition</span></td><td><span class="tag-no tag-cross">Generally not recognised</span></td></tr>
+          <tr><td>Australian Universities</td><td><span class="tag-yes tag-check">Fully recognised</span></td><td><span class="tag-partial tag-part">With bridging</span></td><td><span class="tag-yes tag-check">Recognised at many</span></td><td><span class="tag-partial tag-part">Some universities</span></td></tr>
+          <tr><td>USA / Canada Universities</td><td><span class="tag-yes tag-check">Widely recognised</span></td><td><span class="tag-no tag-cross">Generally not recognised</span></td><td><span class="tag-partial tag-part">Limited</span></td><td><span class="tag-no tag-cross">Generally not recognised</span></td></tr>
+          <tr><td>Chinese / Taiwan Universities</td><td><span class="tag-partial tag-part">Some recognition</span></td><td><span class="tag-no tag-cross">Generally not recognised</span></td><td><span class="tag-no tag-cross">Not widely recognised</span></td><td><span class="tag-yes tag-check">Widely recognised</span></td></tr>
+          <tr><td>Singapore Universities</td><td><span class="tag-yes tag-check">Recognised</span></td><td><span class="tag-partial tag-part">Limited</span></td><td><span class="tag-partial tag-part">Limited</span></td><td><span class="tag-yes tag-check">Recognised</span></td></tr>
+          <tr><td>Global Recognition</td><td>160+ countries</td><td>Mainly Malaysia</td><td>Malaysia + some Commonwealth</td><td>China, Taiwan, SG, some AU</td></tr>
+          <tr><td>Critical Thinking Focus</td><td><span class="tag-yes tag-check">Very high</span></td><td><span class="tag-partial tag-part">Moderate</span></td><td><span class="tag-yes tag-check">High</span></td><td><span class="tag-partial tag-part">Moderate</span></td></tr>
+          <tr><td>English Proficiency Required</td><td><span class="tag-yes tag-check">High — taught in English</span></td><td><span class="tag-partial tag-part">Moderate — mostly BM</span></td><td><span class="tag-partial tag-part">Moderate</span></td><td><span class="tag-no tag-cross">Low — primarily Mandarin</span></td></tr>
+          <tr><td>Subject Flexibility</td><td>High — student selects subjects</td><td>Low — mostly fixed curriculum</td><td>Moderate — 4 subjects chosen</td><td>Low — fixed curriculum</td></tr>
+          <tr><td>Homeschool / Private Candidate</td><td><span class="tag-yes tag-check">Possible</span></td><td><span class="tag-partial tag-part">Limited options</span></td><td><span class="tag-no tag-cross">Must attend Form 6</span></td><td><span class="tag-no tag-cross">Must attend Chinese Independent School</span></td></tr>
+          <tr><td>Next Step After This</td><td>A Levels, Foundation, IB, Pre-U</td><td>STPM, Matriculation, Foundation, A Levels</td><td>Direct university entry (IPTA)</td><td>University in China/Taiwan/SG or private MY</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note">Note: University recognition policies change. Always verify with your target institution. This table reflects general patterns as of 2026.</p>
+  </div>
+</section>
+
+<!-- ════ DEEP DIVE ════ -->
+<section class="section" id="deep">
+  <div class="s-inner">
+    <div class="s-tag">Detailed Profiles</div>
+    <h2 class="s-title">Know Each Qualification<br/><em>In Depth</em></h2>
+    <div class="divider"></div>
+    <div class="deep-grid">
+
+      <!-- IGCSE -->
+      <article class="dcard igcse reveal rd1">
+        <div class="dcard-head igcse">
+          <div class="dcard-abbr">IGCSE</div>
+          <div class="dcard-fullname">International General Certificate of Secondary Education</div>
+          <div class="dcard-tagline">The world's most popular international secondary qualification</div>
+        </div>
+        <div class="dcard-body">
+          <h4>What It Is</h4>
+          <p>IGCSE is administered by Cambridge Assessment International Education (part of the University of Cambridge). It is taken in over 160 countries and accepted by universities worldwide. Students typically sit 5–10 subjects, with results graded A*–G. Emphasis is placed on understanding, analysis, and independent thinking rather than memorisation.</p>
+          <h4>Assessment</h4>
+          <p>Combination of written examinations, coursework, practical assessments, and oral components depending on subject. Questions typically require extended writing, analysis, and evaluation rather than simple recall.</p>
+          <h4>Subjects Available</h4>
+          <ul><li>English Language &amp; Literature, Mathematics, Sciences (Biology, Chemistry, Physics, Combined)</li><li>Humanities: History, Geography, Economics, Business Studies, Global Perspectives</li><li>Languages, Arts, Computing, Physical Education and more (70+ subjects total)</li></ul>
+          <h4>Pathway After IGCSE</h4>
+          <p>Students typically proceed to Cambridge International AS &amp; A Levels, IB Diploma, Foundation programmes, or BTEC. This leads directly to university application worldwide.</p>
+          <div class="pro-con"><div class="pros-box"><h5>Strengths</h5><ul><li>Recognised in 160+ countries</li><li>Develops critical thinking &amp; English</li><li>Flexible subject selection</li><li>Homeschool / private candidate possible</li><li>Strong preparation for A Levels</li></ul></div><div class="cons-box"><h5>Considerations</h5><ul><li>Higher school fees than SPM/STPM</li><li>Not direct pathway for IPTA</li><li>Requires strong English base</li></ul></div></div>
+        </div>
+      </article>
+
+      <!-- SPM -->
+      <article class="dcard spm reveal rd2">
+        <div class="dcard-head spm">
+          <div class="dcard-abbr">SPM</div>
+          <div class="dcard-fullname">Sijil Pelajaran Malaysia</div>
+          <div class="dcard-tagline">Malaysia's national lower secondary examination</div>
+        </div>
+        <div class="dcard-body">
+          <h4>What It Is</h4>
+          <p>SPM is Malaysia's national secondary school examination, administered by Lembaga Peperiksaan Malaysia (LPM). It is compulsory for students in government and national-type schools, taken at the end of Form 5. Results are graded A+–G per subject, and the overall result is used for IPTA entry through the UPU application system.</p>
+          <h4>Assessment</h4>
+          <p>Primarily written examinations with some school-based assessment (PBS) components. Greater emphasis on recall and structured responses compared to IGCSE, though recent reforms have introduced more HOTS (Higher Order Thinking Skills) questions.</p>
+          <h4>Core Subjects</h4>
+          <ul><li>Compulsory: Bahasa Malaysia, English, Mathematics, History, Moral/Islamic Studies</li><li>Electives: Sciences, Additional Mathematics, Accounts, Economics, Arts, Languages</li><li>Students typically sit 8–12 subjects</li></ul>
+          <h4>Pathway After SPM</h4>
+          <p>STPM (Form 6), Matriculation (Matrikulasi), Foundation programmes (ASASI), Diploma, A Levels, or direct entry to some private universities. STPM/Matriculation required for IPTA entry.</p>
+          <div class="pro-con"><div class="pros-box"><h5>Strengths</h5><ul><li>Free / very low cost (government school)</li><li>Gateway to Malaysian IPTA</li><li>Widely understood by Malaysian employers</li><li>Strong Bahasa Malaysia foundation</li></ul></div><div class="cons-box"><h5>Considerations</h5><ul><li>Limited international recognition</li><li>English proficiency less emphasised</li><li>Less flexibility in subjects</li></ul></div></div>
+        </div>
+      </article>
+
+      <!-- STPM -->
+      <article class="dcard stpm reveal rd3">
+        <div class="dcard-head stpm">
+          <div class="dcard-abbr">STPM</div>
+          <div class="dcard-fullname">Sijil Tinggi Persekolahan Malaysia</div>
+          <div class="dcard-tagline">Malaysia's pre-university qualification, equivalent to A Levels</div>
+        </div>
+        <div class="dcard-body">
+          <h4>What It Is</h4>
+          <p>STPM is administered by Majlis Peperiksaan Malaysia (MPM) and is considered equivalent to the British A Level. It is a pre-university qualification taken after SPM in Form 6 (Lower and Upper Six). Results use a CGPA system. STPM is the primary qualification for entry into Malaysian public universities (IPTA) and is one of the most affordable pre-university routes available.</p>
+          <h4>Assessment</h4>
+          <p>Semester-based assessment: three semesters with school-based assessment (coursework/practicals) contributing to each semester's grade, plus final external examinations. CGPA across all semesters forms the final result used for university applications.</p>
+          <h4>Subjects</h4>
+          <ul><li>Students choose 3–4 subjects from streams: Science, Arts, or Technical</li><li>Compulsory: Pengajian Am (General Studies)</li><li>Examples: Biology, Chemistry, Physics, Mathematics, Economics, Accounts, Literature, History</li></ul>
+          <h4>Pathway After STPM</h4>
+          <p>Direct application to Malaysian public universities (UM, UKM, USM, UPM, UTM, etc.) via UPU. Also accepted by some private universities in Malaysia and some Australian institutions.</p>
+          <div class="pro-con"><div class="pros-box"><h5>Strengths</h5><ul><li>Very affordable (government subsidised)</li><li>Gold standard for Malaysian IPTA entry</li><li>Rigorous — A Level equivalent</li><li>Wide subject range</li></ul></div><div class="cons-box"><h5>Considerations</h5><ul><li>Must attend Form 6 (school-based)</li><li>Limited international recognition vs A Levels</li><li>Competitive — lower CGPA may limit IPTA options</li></ul></div></div>
+        </div>
+      </article>
+
+      <!-- UEC -->
+      <article class="dcard uec reveal rd4">
+        <div class="dcard-head uec">
+          <div class="dcard-abbr">UEC</div>
+          <div class="dcard-fullname">Unified Examination Certificate</div>
+          <div class="dcard-tagline">The qualification of Malaysia's Chinese Independent Schools</div>
+        </div>
+        <div class="dcard-body">
+          <h4>What It Is</h4>
+          <p>UEC (统考) is administered by the United Chinese School Committees' Association of Malaysia (UCSCAM / Dong Zong). It is the qualification of Chinese Independent High Schools (华文独立中学) and is conducted primarily in Mandarin. The UEC has two levels: Junior (JUEC, equivalent to Form 3 / O Level) and Senior (SUEC, equivalent to pre-university / A Level). It is not recognised by Malaysian public universities, which has long been a contentious policy issue.</p>
+          <h4>Assessment</h4>
+          <p>Written examinations primarily in Mandarin Chinese. Students study a broad curriculum including Chinese, Malay, English, Mathematics, Sciences, Commerce, and Humanities — typically 16–20 subjects total across the junior and senior levels.</p>
+          <h4>Subject Coverage</h4>
+          <ul><li>Three languages: Chinese, Malay, English</li><li>Sciences: Biology, Chemistry, Physics, Mathematics, Additional Mathematics</li><li>Commerce: Bookkeeping/Accounts, Economics, Commerce</li><li>Humanities: History, Geography, Art</li></ul>
+          <h4>Pathway After UEC</h4>
+          <p>Universities in Taiwan, China, Singapore, Hong Kong, and some private Malaysian universities. Students seeking Australian university entry may need to pair UEC with other qualifications. Some UEC holders also take IGCSE or A Levels simultaneously.</p>
+          <div class="pro-con"><div class="pros-box"><h5>Strengths</h5><ul><li>Strong Mandarin and trilingual education</li><li>Direct pathway to Chinese-speaking universities</li><li>Recognised in Singapore (NUS, NTU)</li><li>Comprehensive broad curriculum</li></ul></div><div class="cons-box"><h5>Considerations</h5><ul><li>NOT recognised by Malaysian public universities (IPTA)</li><li>Limited recognition in UK/USA/Canada</li><li>Fewer international study options vs IGCSE</li></ul></div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHO SHOULD CHOOSE ════ -->
+<section class="section alt" id="who">
+  <div class="s-inner">
+    <div class="s-tag">Decision Guide</div>
+    <h2 class="s-title">Which Qualification<br/><em>Is Right for Your Child?</em></h2>
+    <div class="divider"></div>
+    <p class="s-lead">There is no single "best" qualification — the right choice depends entirely on your child's goals, strengths, and target universities. Here's a guide.</p>
+
+    <div class="who-grid reveal">
+      <div class="who-card igcse"><span class="who-badge">Choose IGCSE if…</span><h3>Your child aims for international universities or a global career</h3><ul><li>Targeting universities in UK, Australia, USA, Canada</li><li>Needs strong English proficiency development</li><li>Wants flexible subject selection</li><li>Prefers critical thinking &amp; analysis over memorisation</li><li>Considering homeschool or flexible learning</li><li>Plans to pursue A Levels or IB after</li><li>Wants the broadest global university options</li></ul></div>
+      <div class="who-card spm"><span class="who-badge">Choose SPM if…</span><h3>Your child wants an affordable pathway to Malaysian public universities</h3><ul><li>Planning to study at IPTA (UM, UKM, USM, etc.)</li><li>Government school background</li><li>Cost is a primary consideration</li><li>Strong in Bahasa Malaysia</li><li>Intends to work primarily in Malaysia</li><li>Plans to continue to STPM or Matriculation</li></ul></div>
+      <div class="who-card stpm"><span class="who-badge">Choose STPM if…</span><h3>Your child wants the strongest pathway into Malaysian public universities</h3><ul><li>Targeting competitive IPTA programmes (Medicine, Law, Engineering)</li><li>Already completed SPM and wants to continue in government school</li><li>Very cost-conscious (government subsidised)</li><li>Academically strong and capable of rigorous assessment</li><li>Happy to study in Form 6 environment</li></ul></div>
+      <div class="who-card uec"><span class="who-badge">Choose UEC if…</span><h3>Your child is in a Chinese Independent School and targets Chinese-speaking universities</h3><ul><li>Attending a Chinese Independent High School (独立中学)</li><li>Wants strong trilingual education (Chinese, Malay, English)</li><li>Targeting universities in Taiwan, China, Hong Kong, Singapore</li><li>Family values Chinese cultural heritage education</li><li>May supplement with IGCSE or A Levels for broader options</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ UNIVERSITY PATHWAYS ════ -->
+<section class="section" id="uni">
+  <div class="s-inner">
+    <div class="s-tag">University Pathways</div>
+    <h2 class="s-title">Where Does Each<br/><em>Qualification Take You?</em></h2>
+    <div class="divider"></div>
+    <p class="s-lead">Each qualification opens different doors. This visualisation shows relative strength of access to each university destination.</p>
+
+    <div class="paths-grid reveal">
+      <div class="path-card"><div class="path-title">🇲🇾 Malaysian Public Universities (IPTA)</div><div class="path-sub">UM, UKM, USM, UPM, UTM and other public universities</div><div class="path-row"><span class="path-qual">IGCSE</span><div class="path-rating"><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Not direct</span></div><div class="path-row"><span class="path-qual">SPM + Matrik / STPM</span><div class="path-rating"><div class="dot fill-spm"></div><div class="dot fill-spm"></div><div class="dot fill-spm"></div><div class="dot fill-spm"></div><div class="dot fill-spm"></div></div><span class="path-lbl">Excellent</span></div><div class="path-row"><span class="path-qual">STPM</span><div class="path-rating"><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div></div><span class="path-lbl">Excellent</span></div><div class="path-row"><span class="path-qual">UEC</span><div class="path-rating"><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Not recognised</span></div></div>
+      <div class="path-card"><div class="path-title">🇬🇧 United Kingdom Universities</div><div class="path-sub">Oxford, Cambridge, LSE, Imperial, Russell Group and others</div><div class="path-row"><span class="path-qual">IGCSE + A Levels</span><div class="path-rating"><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div></div><span class="path-lbl">Excellent</span></div><div class="path-row"><span class="path-qual">SPM</span><div class="path-rating"><div class="dot fill-spm"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Very limited</span></div><div class="path-row"><span class="path-qual">STPM</span><div class="path-rating"><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Some</span></div><div class="path-row"><span class="path-qual">UEC</span><div class="path-rating"><div class="dot fill-uec"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Very limited</span></div></div>
+      <div class="path-card"><div class="path-title">🇦🇺 Australian Universities</div><div class="path-sub">ANU, Melbourne, Sydney, UNSW, Monash, UQ and others</div><div class="path-row"><span class="path-qual">IGCSE + A Levels</span><div class="path-rating"><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div></div><span class="path-lbl">Excellent</span></div><div class="path-row"><span class="path-qual">SPM</span><div class="path-rating"><div class="dot fill-spm"></div><div class="dot fill-spm"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Some (bridging)</span></div><div class="path-row"><span class="path-qual">STPM</span><div class="path-rating"><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot fill-stpm"></div><div class="dot empty"></div></div><span class="path-lbl">Good</span></div><div class="path-row"><span class="path-qual">UEC</span><div class="path-rating"><div class="dot fill-uec"></div><div class="dot fill-uec"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Some</span></div></div>
+      <div class="path-card"><div class="path-title">🇨🇳🇹🇼 China, Taiwan &amp; Singapore</div><div class="path-sub">NUS, NTU, NTU Taiwan, and mainland Chinese universities</div><div class="path-row"><span class="path-qual">IGCSE</span><div class="path-rating"><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot fill-igcse"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Good</span></div><div class="path-row"><span class="path-qual">SPM</span><div class="path-rating"><div class="dot fill-spm"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Limited</span></div><div class="path-row"><span class="path-qual">STPM</span><div class="path-rating"><div class="dot fill-stpm"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div><div class="dot empty"></div></div><span class="path-lbl">Limited</span></div><div class="path-row"><span class="path-qual">UEC</span><div class="path-rating"><div class="dot fill-uec"></div><div class="dot fill-uec"></div><div class="dot fill-uec"></div><div class="dot fill-uec"></div><div class="dot fill-uec"></div></div><span class="path-lbl">Excellent</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SUNRISE CTA ════ -->
+<section class="section alt" id="sunrise">
+  <div class="s-inner">
+    <div class="s-tag">About Sunrise Education</div>
+    <h2 class="s-title">Cambridge IGCSE in<br/><em>Klang, Selangor</em></h2>
+    <div class="divider"></div>
+    <p class="s-lead">Sunrise Education (阳光学府) is a Cambridge Assessment International Education registered centre in Klang, Selangor. Since 2014, we have guided hundreds of students through IGCSE with small classes, personalised teaching, and a caring environment.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:2.5rem 0" class="reveal">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem 1.4rem;box-shadow:var(--shadow-sm)"><div style="font-size:1.8rem;margin-bottom:.5rem">📚</div><div style="font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);font-weight:700;margin-bottom:.4rem">Cambridge IGCSE</div><div style="font-size:.85rem;color:var(--text2);line-height:1.65">Registered Cambridge centre. IGCSE + Lower Secondary + Primary. Internationally recognised results.</div></div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem 1.4rem;box-shadow:var(--shadow-sm)"><div style="font-size:1.8rem;margin-bottom:.5rem">👥</div><div style="font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);font-weight:700;margin-bottom:.4rem">Small Classes</div><div style="font-size:.85rem;color:var(--text2);line-height:1.65">Every student gets individual attention. Teachers know every child by name, pace, and strength.</div></div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem 1.4rem;box-shadow:var(--shadow-sm)"><div style="font-size:1.8rem;margin-bottom:.5rem">🏡</div><div style="font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);font-weight:700;margin-bottom:.4rem">Homeschool Programme</div><div style="font-size:.85rem;color:var(--text2);line-height:1.65">Flexible, structured Cambridge homeschool pathway for ages 7–18 who prefer learning outside a traditional classroom.</div></div>
+    </div>
+
+    <div class="sunrise-cta">
+      <div><h3>Interested in IGCSE for your child?</h3><p>Talk to our team at Sunrise Education, Klang. We'll help you understand if Cambridge IGCSE is the right pathway, and how to enrol. No pressure — just honest advice.</p></div>
+      <div class="cta-btns"><a href={SITE.wa} class="btn-gold" rel="noopener">💬 WhatsApp Us Now</a><a href={SITE.url} class="btn-outline-w">🌐 Visit Sunrise Education</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="section" id="faq" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="s-inner">
+    <div class="s-tag">Questions &amp; Answers</div>
+    <h2 class="s-title">Frequently Asked<br/><em>Questions</em></h2>
+    <div class="divider"></div>
+    <p class="s-lead">Common questions parents and students ask when comparing IGCSE, SPM, STPM, and UEC.</p>
+
+    <div class="faq-list reveal">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">What is the difference between IGCSE and SPM?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">IGCSE is an internationally recognised qualification by Cambridge Assessment International Education, taught in English, and accepted by universities in 160+ countries. SPM is Malaysia's national examination in Bahasa Malaysia, primarily for entry into Malaysian public universities. IGCSE places greater emphasis on critical thinking and written English. SPM is far cheaper as it is government-subsidised, and is the gateway to Malaysian IPTA entry.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Is IGCSE harder than SPM?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">IGCSE and SPM assess different competencies so a direct comparison is complex. IGCSE places greater weight on critical analysis, extended writing, and independent thinking in English, benchmarked to international standards. SPM is benchmarked to Malaysian national standards. Students who are stronger in English and analytical thinking typically find IGCSE a natural fit, while students stronger in Bahasa Malaysia may find SPM more comfortable. Neither is objectively "harder" — it depends on the individual.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Which qualification is best for studying abroad?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Cambridge IGCSE (followed by A Levels) offers the broadest global university access, accepted in the UK, Australia, USA, Canada, Singapore, and 160+ countries. UEC is well-recognised in Taiwan, China, and Singapore. STPM is accepted at some Australian universities and some Commonwealth institutions. SPM has very limited direct international recognition. For the widest global options, IGCSE + A Levels is the most versatile pathway.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Which is cheapest — IGCSE, STPM, SPM, or UEC?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">SPM and STPM are by far the cheapest, as they are taken in government schools that are subsidised by the Malaysian government. Examination fees are minimal. UEC is taken in Chinese Independent Schools with moderate school fees. Cambridge IGCSE involves private school fees plus CAIE examination registration fees, making it significantly more expensive. However, smaller IGCSE schools like Sunrise Education in Klang maintain accessible fee structures compared to larger international schools.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Does IGCSE allow entry into Malaysian public universities (IPTA)?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Cambridge IGCSE alone is not the standard pathway for Malaysian public university (IPTA) entry. IPTA entry primarily uses SPM results followed by STPM or Matriculation (Matrikulasi). However, students with IGCSE qualifications can pursue A Levels or Foundation programmes which are accepted by private universities and some public universities in Malaysia. IGCSE is primarily aimed at private university and international university entry.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Is UEC recognised in Malaysia?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">UEC is NOT recognised for entry into Malaysian public universities (IPTA). This has been a long-standing policy debate in Malaysia. However, many Malaysian private universities accept UEC. UEC is well-recognised internationally by universities in Taiwan, China, Singapore (NUS, NTU), and some Australian universities. Some UEC students also sit for IGCSE or A Levels to broaden their options.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">What is STPM equivalent to internationally?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">STPM is widely considered equivalent to the British A Level standard and is sometimes called the Malaysian A Level. It is one of the world's most rigorous pre-university examinations. STPM is recognised by some Australian universities and some Commonwealth institutions. However, it does not carry the same international brand recognition as Cambridge A Levels, so for UK/USA/Canada universities, Cambridge A Levels or IB Diploma are more appropriate alternatives.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Can a student do both IGCSE and SPM?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Some private schools in Malaysia offer dual-pathway programmes that prepare students for both Cambridge IGCSE and SPM examinations simultaneously. However, this is academically demanding. More commonly, students and families choose one pathway based on their goals. IGCSE students can register as private candidates for SPM if needed, though this requires significant additional preparation.</p></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><div class="faq-q" onclick="tf(this)" role="button" tabindex="0" aria-expanded="false"><span itemprop="name">Which qualification do employers in Malaysia prefer?</span><div class="faq-icon" aria-hidden="true">+</div></div><div class="faq-ans" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">For Malaysian employers, what matters most is the degree/diploma the candidate holds, not the secondary school qualification. However, IGCSE and A Level backgrounds are often associated with stronger English communication skills, critical thinking, and international exposure — qualities valued by multinational companies and global firms. For government sector jobs in Malaysia, SPM/STPM pathways through IPTA are often more directly relevant. Ultimately the university degree matters far more than which secondary qualification was taken.</p></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="fn">Sunrise Education</div><div class="fc">阳光学府 · Cambridge IGCSE · Klang</div><p>Cambridge IGCSE registered centre in Klang, Selangor. Happiness · Learning · Growth since 2014. Ages 7–18 · Small classes · Homeschool available.</p><p style="font-size:.8rem">📍 No. 25-2nd Floor, Jalan Mahogani 5/KS7, 41200 Klang<br/>📞 <a href="tel:+60124251556" style="color:inherit">012-425 1556</a> · ✉️ <a href="mailto:info@sun.edu.my" style="color:inherit">info@sun.edu.my</a></p></div>
+      <div class="footer-links"><div class="footer-col"><h5>Programmes</h5><a href={`${SITE.url}/p/igcse.html`}>Cambridge IGCSE</a><a href={`${SITE.url}/p/cambridge-igcse-syllabus.html`}>IGCSE Syllabus</a><a href={`${SITE.url}/p/sunrise-homeschooling.html`}>Homeschooling</a><a href={`${SITE.url}/p/admissions.html`}>Enrolment</a><a href={`${SITE.url}/p/calendar-schedule.html`}>Academic Calendar</a></div><div class="footer-col"><h5>Resources</h5><a href={SITE.page}>IGCSE vs SPM vs STPM vs UEC</a><a href={`${SITE.url}/p/about-us.html`}>About Sunrise</a><a href={`${SITE.url}/p/contact.html`}>Contact Us</a><a href={SITE.ai} rel="noopener">Ask AI 24/7</a><a href={SITE.wa} rel="noopener">WhatsApp</a></div></div>
+    </div>
+    <div class="seo-kw" aria-label="Related topics">
+      <a href={SITE.page}>IGCSE vs SPM Malaysia</a><span>·</span>
+      <a href={SITE.page}>IGCSE vs STPM</a><span>·</span>
+      <a href={SITE.page}>IGCSE vs UEC</a><span>·</span>
+      <a href={SITE.page}>STPM vs SPM</a><span>·</span>
+      <a href={`${SITE.url}/p/igcse.html`}>Cambridge IGCSE Klang</a><span>·</span>
+      <a href={`${SITE.url}/p/igcse.html`}>IGCSE school Selangor</a><span>·</span>
+      <a href={`${SITE.url}/p/sunrise-homeschooling.html`}>homeschool IGCSE Malaysia</a><span>·</span>
+      <a href={`${SITE.url}/p/admissions.html`}>IGCSE admission Malaysia 2026</a>
+    </div>
+    <div class="footer-bottom" style="margin-top:1.5rem">
+      <span>© 2026 Sunrise Education 阳光学府. All rights reserved.</span>
+      <div style="display:flex;gap:1.2rem"><a href={SITE.url}>sun.edu.my</a><a href={SITE.ai} rel="noopener">AI Assistant</a><a href="/sitemap.xml">Sitemap</a><a href="/robots.txt">Robots</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOAT WA -->
+<a href={SITE.wa} class="float-wa" rel="noopener" aria-label="WhatsApp Sunrise Education">
+  <div class="float-tip">Ask Sunrise</div>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* FAQ */
+function tf(btn){
+  var item=btn.parentElement;
+  var open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(el){
+    el.classList.remove('open');
+    el.querySelector('.faq-q').setAttribute('aria-expanded','false');
+  });
+  if(!open){item.classList.add('open');btn.setAttribute('aria-expanded','true')}
+}
+document.addEventListener('keydown',function(e){
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('faq-q')){e.preventDefault();tf(e.target)}
+});
+
+/* Mobile Menu */
+function toggleMenu(){document.getElementById('mobNav').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobNav').classList.remove('open')}
+
+/* Scroll Reveal */
+var ro=new IntersectionObserver(function(e){
+  e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el)});
+
+/* Jump nav highlight */
+var jlinks=document.querySelectorAll('.jlink');
+var sections=document.querySelectorAll('section[id],header[id]');
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      jlinks.forEach(function(l){l.classList.remove('active')});
+      var active=document.querySelector('.jlink[href="#'+e.target.id+'"]');
+      if(active)active.classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(function(s){io.observe(s)});
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
 </script>
+
 </body>
 </html>
